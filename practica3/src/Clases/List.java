@@ -40,7 +40,7 @@ public class List<T> {
 		}
 		else {
 			
-			n.setNext(head);
+			n.setRight(head);
 			head = n;
 			
 		}
@@ -55,7 +55,7 @@ public class List<T> {
 			tail = n;
 		}
 		else {
-			tail.setNext(n);
+			tail.setRight(n);
 			tail = n;
 		}
 		size++;	
@@ -65,8 +65,8 @@ public class List<T> {
 			
 			
 			Node<T> temp = head;
-			head = temp.getNext();
-			temp.setNext(null);
+			head = temp.getRight();
+			temp.setRight(null);
 			size--;
 			return temp.getData();
 			
@@ -82,12 +82,12 @@ public class List<T> {
 			Node<T> temp = tail;
 			Node<T> anterior =head;
 			if(anterior!=null) {
-				while(anterior.getNext()!=tail) {
+				while(anterior.getRight()!=tail) {
 					
-					anterior = anterior.getNext();
+					anterior = anterior.getRight();
 					
 				}
-				anterior.setNext(null);
+				anterior.setRight(null);
 			}
 			tail = anterior;
 			size--;
@@ -114,10 +114,10 @@ public class List<T> {
 			Node<T> temp1=First();
 			Node<T> temp2=First();
 			while(temp2!=end) {
-				temp2=temp2.getNext();
+				temp2=temp2.getRight();
 				if(temp2!=end) {
-					temp2=temp2.getNext();
-					temp1=temp1.getNext();
+					temp2=temp2.getRight();
+					temp1=temp1.getRight();
 					
 				}
 			}

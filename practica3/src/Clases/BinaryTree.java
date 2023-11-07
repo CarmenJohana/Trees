@@ -5,6 +5,17 @@ public class BinaryTree<T> {
 	private Node<T> root;
 	private int size;
 	
+	/***
+	 *1) ¿Asumimos en el método de remove que el nodo v (a eliminar) está en el árbol?
+	 *2) ¿Al agregar una nueva raíz se deberían eliminar los datos antiguos?
+	 *3) La profesora usa doble nodo(?) La clase nodo que se hizo es similar en espíritu.
+	 *Realmente la única diferencia es que prev es el left y next es el right. Al menos eso
+	 *fue lo que inferí que debían ser los prev y next que la profesora ponía en la implementación
+	 *de algunos métodos del BinaryTree (en las diapositivas).
+	 * Deberíamos hacer las implementaciones con ArrayQueue o con el Queue con lista (este segundo fue el que
+	 * puse) 
+	 */
+	
 	public BinaryTree() {
 		
 		root=null;
