@@ -1,20 +1,18 @@
 package Clases;
-
 public class BinaryTree<T> {
-
-	private Node<T> root;
-	private int size;
+	
 	
 	/***
-	 *1) ¿Asumimos en el método de remove que el nodo v (a eliminar) está en el árbol?
+	 *1) ¿Asumimos en el método de remove que el nodo v está en el árbol?
 	 *2) ¿Al agregar una nueva raíz se deberían eliminar los datos antiguos?
 	 *3) La profesora usa doble nodo(?) La clase nodo que se hizo es similar en espíritu.
 	 *Realmente la única diferencia es que prev es el left y next es el right. Al menos eso
 	 *fue lo que inferí que debían ser los prev y next que la profesora ponía en la implementación
-	 *de algunos métodos del BinaryTree (en las diapositivas).
-	 * Deberíamos hacer las implementaciones con ArrayQueue o con el Queue con lista (este segundo fue el que
-	 * puse) 
+	 *de algunos métodos del BinaryTree (en la diapositivas).
 	 */
+
+	private Node<T> root;
+	private int size;
 	
 	public BinaryTree() {
 		
@@ -33,7 +31,7 @@ public class BinaryTree<T> {
 	
 	public boolean isRoot(Node<T> v) {
 		
-		return v.equals(root);
+		return root.equals(v);
 		
 	}
 	
@@ -96,7 +94,7 @@ public class BinaryTree<T> {
 	}
 	
 	public int depth(Node<T> v) {
-		//La profesora usa doble nodo(?)
+		
 		if(isRoot(v)){
 			return 0;
 		}
@@ -126,8 +124,7 @@ public class BinaryTree<T> {
 	
 	public void addRoot(T e) {
 		
-		//Al agregar una nueva raíz asumimos que al árbol
-		//se le eliminan los datos antiguos?
+		
 		
 		root = new Node<T>(e);
 		size=1; 
@@ -147,8 +144,7 @@ public class BinaryTree<T> {
 	
 	public void remove(Node<T> v) {
 		
-		//Asumimos que v está en el
-		//árbol
+		
 		Node<T> p = parent(v);
 		Node<T> child;
 		if(hasLeft(v)||hasRight(v)) {
@@ -183,7 +179,156 @@ public class BinaryTree<T> {
 	}
 	
 	
+	public void imprimirArbol() {
+
+		int height=4;
+		
+		int cantidad =(int) (3*(Math.pow(2, height)-1)+Math.pow(2, height));
+		int valorMalla =cantidad;
+		
+		Queue<Node<T>> q1 = new Queue<Node<T>>();
+		Queue<Node<T>> q2 = new Queue<Node<T>>();
+		q1.enqueue(root());
+		q2.enqueue(root());
+		
+		while(!q2.isEmpty()) {
+			Node<T> saca= q2.dequeue();
+			if (saca.getLeft()!= null) {
+				
+				q2.enqueue(saca.getLeft());
+			}
+			if (saca.getRight()!= null) {
+				
+				q2.enqueue(saca.getRight());
+			}
+			q1.enqueue(saca.getLeft());
+			q1.enqueue(saca.getRight());
+			
+			
+			
+		}
+		
+		//q1 tiene todos los nodos del árbol mas los hijos nulos de los últimos
+		/***
+		//VERIFICACIÓN AQUI
+		while(!q1.isEmpty()) {
+			
+			System.out.println(q1.dequeue());
+			
+			
+		}***/
+		
+		
+		Node<T> e=null;
+		
+		
+			e=q1.dequeue();
+			
+				cantidad = (int) Math.floor(cantidad/2);
+				for (int j= 1; j<=valorMalla; j++) {
+					System.out.print(" ");
+					if(j==cantidad) {
+						System.out.println(e);
+						break;
+					}
+				}
+				
+			
+			
+			
+		int contador;
+		int h=1;//Controla la cantidad de veces que se hace desqueue
+			
+		while(h<=height) {
+			contador= cantidad;
+			cantidad = (int) Math.floor(cantidad/2);
+			
+			
+			
+			int j=0;
+			int i = 0;
+			int m=1;
+			
+			
+			//IMPRIME UN RENGLÓN
+			while(i!=Math.pow(2, h) && j!=valorMalla ) {
+				j++;
+				if(j==cantidad && i==0) {
+					e=q1.dequeue();
+					if(e==null) {
+						System.out.print("x");
+					}
+					else {
+					System.out.print(e);
+					}
+					i++;
+				}
+				else if(j==contador*m+m+cantidad) {
+					e= q1.dequeue();
+					if(e==null) {
+						System.out.print("x");
+					}
+					else {
+					System.out.print(e);
+					}
+					i++;
+					m++;
+				}
+				else {
+					System.out.print(" ");
+				}
+				
+				
+				
+			}
+			
+			h++;	
+			System.out.println();
+		}
+	}
 	
 	
+public static void main(String[] args) {
+		
+		
+		
+		
+		BinaryTree<Integer> b= new BinaryTree<Integer>();
+		b.addRoot(1);
+		
+		Node<Integer> n6 = new Node<Integer>(6);
+		Node<Integer> n2 = new Node<Integer>(2);
+		Node<Integer> n3 = new Node< Integer>(3);
+		Node<Integer> n7 = new Node< Integer>(7);
+		Node<Integer> n5 = new Node< Integer>(5);
+		Node<Integer> n4 = new Node< Integer>(4);
+		Node<Integer> n8 = new Node< Integer>(8);
+		Node<Integer> n9 = new Node< Integer>(9);
+		Node<Integer> n10 = new Node<Integer>(0);
+		Node<Integer> n11 = new Node<Integer>(1);
+		Node<Integer> n12 = new Node< Integer>(1);
+		Node<Integer> n13 = new Node< Integer>(1);
+		Node<Integer> n14 = new Node< Integer>(1);
+		Node<Integer> n15 = new Node< Integer>(1);
+		Node<Integer> n16 = new Node< Integer>(1);
+		Node<Integer> n17 = new Node< Integer>(1);
+		
+		
+		b.root().setLeft(n2);
+		b.root().setRight(n3);
+		b.root().getLeft().setLeft(n4);
+		b.root().getLeft().setRight(n5);
+		b.root().getRight().setLeft(n6);
+		b.root().getRight().setRight(n7);
+		b.root().getLeft().getLeft().setLeft(n8);
+		b.root().getLeft().getLeft().setRight(n9);
+		
+		b.root().getLeft().getRight().setLeft(n10);
+		b.root().getLeft().getRight().setRight(n11);
+		b.root().getLeft().getRight().getLeft().setLeft(n12);
+		
+		b.imprimirArbol();
 	
+	}
+
 }
