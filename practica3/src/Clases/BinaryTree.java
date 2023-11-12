@@ -1,4 +1,7 @@
 package Clases;
+
+
+
 public class BinaryTree<T> {
 	
 	
@@ -36,19 +39,25 @@ public class BinaryTree<T> {
 	}
 	
 	public boolean isInternal(Node<T> v){
+		
 		return hasLeft(v)|| hasRight(v);
 		
 	}
 	
 	public boolean hasLeft(Node<T> v) {
 		
+		if(v!=null) {
 		return v.getLeft()!=null;
-		
+		}
+		return false;
 	}
 	
 	public boolean hasRight(Node<T> v) {
 		
-		return v.getRight()!=null;
+		if(v!=null) {
+			return v.getRight()!=null;
+			}
+			return false;
 		
 	}
 	
@@ -59,13 +68,18 @@ public class BinaryTree<T> {
 	}
 	
 	public Node<T> left(Node<T> v){
-		
+		if(v!=null) {
 		return v.getLeft();
+		}
+		return null;
 	}
 	
 	public Node<T> right(Node<T> v){
 		
-		return v.getRight();
+		if(v!=null) {
+			return v.getRight();
+			}
+			return null;
 		
 	}
 	
@@ -102,29 +116,38 @@ public class BinaryTree<T> {
 		
 		
 	}
-	
-	public int height(Node<T>v) {
-		
-		if (!isInternal(v)) {
-			return 0;
-		}
-		int h=0;
-		int alturaIzquierdo = height(left(v));
-		int alturaDerecho = height(right(v));
-		
-		if(alturaIzquierdo<=alturaDerecho) {
-			h= alturaIzquierdo;
-		}
-		else {
-			h=alturaDerecho;
-		}
-		return h++;
-		
+	public int height(Node<T> v) {
+	    //System.out.println("Comentario de depuración" + v);
+
+	    if (!isInternal(v)) {
+	        return 0;
+	    } else {
+	        int h = 0;
+	        int alturaIzquierdo = 0;
+	        int alturaDerecho = 0;
+
+	        Node<T> izquierdo = left(v);
+	        Node<T> derecho = right(v);
+
+	        if (izquierdo != null) {
+	            alturaIzquierdo = height(izquierdo);
+	        }
+	        if (derecho != null) {
+	            alturaDerecho = height(derecho);
+	        }
+
+	        if (alturaIzquierdo >= alturaDerecho) {
+	            h = alturaIzquierdo + 1;
+	        } else {
+	            h = alturaDerecho + 1;
+	        }
+	        //System.out.println("Valor de h " + h);
+	        return h;
+	    }
 	}
+
 	
 	public void addRoot(T e) {
-		
-		
 		
 		root = new Node<T>(e);
 		size=1; 
@@ -181,7 +204,7 @@ public class BinaryTree<T> {
 	
 	public void imprimirArbol() {
 
-		int height=4;
+		int height=this.height(root);
 		
 		int cantidad =(int) (3*(Math.pow(2, height)-1)+Math.pow(2, height));
 		int valorMalla =cantidad;
@@ -288,7 +311,7 @@ public class BinaryTree<T> {
 	}
 	
 	
-public static void main(String[] args) {
+	public static void main(String[] args) {
 		
 		
 		
@@ -326,9 +349,10 @@ public static void main(String[] args) {
 		b.root().getLeft().getRight().setLeft(n10);
 		b.root().getLeft().getRight().setRight(n11);
 		b.root().getLeft().getRight().getLeft().setLeft(n12);
-		
+		//b.root().getLeft().getRight().getLeft().setRight(n12);
 		b.imprimirArbol();
-	
+		
+		System.out.println(b.height(b.root()));
 	}
 
 }
