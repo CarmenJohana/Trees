@@ -68,23 +68,21 @@ public class BinaryTree<T> {
 	}
 	
 	public Node<T> left(Node<T> v){
-		if(v!=null) {
+		
 		return v.getLeft();
-		}
-		return null;
+		
 	}
 	
 	public Node<T> right(Node<T> v){
 		
-		if(v!=null) {
+		
 			return v.getRight();
-			}
-			return null;
+	
 		
 	}
-	
+	/***
 	public Node<T> parent(Node<T> v){
-		
+		if(v!=null) {
 		if (isRoot(v)){
 			return null;
 		}
@@ -104,8 +102,50 @@ public class BinaryTree<T> {
 		}
 		
 		return temp;
+		}
+		return null;
 		
 	}
+	***/
+	
+	
+	
+	public Node<T> parent(Node<T> v) {
+	    if (v != null) {
+	        if (isRoot(v)) {
+	            return null;
+	        }
+
+	        Queue<Node<T>> Q = new Queue<>();
+	        Q.enqueue(root);
+	        Node<T> temp = root;
+
+	        while (!Q.isEmpty()) {
+	            temp = Q.dequeue();
+
+	            // Verificar si left(temp) y right(temp) son null antes de comparar con v
+	            if (hasLeft(temp) && left(temp).equals(v)) {
+	                return temp;
+	            }
+	            if (hasRight(temp) && right(temp).equals(v)) {
+	                return temp;
+	            }
+
+	            if (hasLeft(temp)) {
+	                Q.enqueue(left(temp));
+	            }
+	            if (hasRight(temp)) {
+	                Q.enqueue(right(temp));
+	            }
+	        }
+
+	        // Si no se encuentra el padre, puedes devolver null o lanzar una excepción según tu lógica.
+	        return null;
+	    }
+
+	    return null;
+	}
+
 	
 	public int depth(Node<T> v) {
 		
@@ -166,13 +206,11 @@ public class BinaryTree<T> {
 	}
 	
 	public void remove(Node<T> v) {
-		
-		
 		Node<T> p = parent(v);
 		Node<T> child;
 		if(hasLeft(v)||hasRight(v)) {
 			if(hasLeft(v)) {
-				 child= left(v);
+				 child = left(v);
 			}
 			else {
 				child = right(v);
@@ -201,7 +239,6 @@ public class BinaryTree<T> {
 		
 	}
 	
-	
 	public void imprimirArbol() {
 
 		int height=this.height(root);
@@ -209,28 +246,58 @@ public class BinaryTree<T> {
 		int cantidad =(int) (3*(Math.pow(2, height)-1)+Math.pow(2, height));
 		int valorMalla =cantidad;
 		
-		Queue<Node<T>> q1 = new Queue<Node<T>>();
+		/***Queue<Node<T>> q1 = new Queue<Node<T>>();
 		Queue<Node<T>> q2 = new Queue<Node<T>>();
 		q1.enqueue(root());
 		q2.enqueue(root());
-		
-		while(!q2.isEmpty()) {
-			Node<T> saca= q2.dequeue();
-			if (saca.getLeft()!= null) {
-				
-				q2.enqueue(saca.getLeft());
-			}
-			if (saca.getRight()!= null) {
-				
-				q2.enqueue(saca.getRight());
-			}
-			q1.enqueue(saca.getLeft());
-			q1.enqueue(saca.getRight());
-			
-			
-			
-		}
-		
+
+		while (!q2.isEmpty()) {
+		    Node<T> saca = q2.dequeue();
+
+		    if (saca != null) {
+		        if (saca.getLeft() != null) {
+		            q2.enqueue(saca.getLeft());
+		        } else {
+		            q2.enqueue(null);
+		        }
+
+		        if (saca.getRight() != null) {
+		            q2.enqueue(saca.getRight());
+		        } else {
+		            q2.enqueue(null);
+		        }
+
+		        q1.enqueue(saca.getLeft());
+		        q1.enqueue(saca.getRight());
+		    } else {
+		        // Si el nodo actual es nulo, encolamos dos nodos nulos correspondientes a los hijos inexistentes
+		        q1.enqueue(null);
+		        q1.enqueue(null);
+		    }
+		}***/
+		Queue<Node<T>> q1 = new Queue<Node<T>>();
+	    Queue<Node<T>> q2 = new Queue<Node<T>>();
+	    
+	    q2.enqueue(root());
+
+	    for (int i = 1; i <= height+1; i++) {
+	        int nodosEnNivel = (int) Math.pow(2, i - 1);
+	        for (int j = 0; j < nodosEnNivel; j++) {
+	            Node<T> saca = q2.dequeue();
+	            
+	            q1.enqueue(saca != null ? saca : null);
+
+	            if (saca != null) {
+	                q2.enqueue(saca.getLeft());
+	                q2.enqueue(saca.getRight());
+	                
+	                
+	            } else {
+	                q2.enqueue(null);
+	                q2.enqueue(null);
+	            }
+	        }
+	    }
 		//q1 tiene todos los nodos del árbol mas los hijos nulos de los últimos
 		/***
 		//VERIFICACIÓN AQUI
@@ -311,48 +378,5 @@ public class BinaryTree<T> {
 	}
 	
 	
-	public static void main(String[] args) {
-		
-		
-		
-		
-		BinaryTree<Integer> b= new BinaryTree<Integer>();
-		b.addRoot(1);
-		
-		Node<Integer> n6 = new Node<Integer>(6);
-		Node<Integer> n2 = new Node<Integer>(2);
-		Node<Integer> n3 = new Node< Integer>(3);
-		Node<Integer> n7 = new Node< Integer>(7);
-		Node<Integer> n5 = new Node< Integer>(5);
-		Node<Integer> n4 = new Node< Integer>(4);
-		Node<Integer> n8 = new Node< Integer>(8);
-		Node<Integer> n9 = new Node< Integer>(9);
-		Node<Integer> n10 = new Node<Integer>(0);
-		Node<Integer> n11 = new Node<Integer>(1);
-		Node<Integer> n12 = new Node< Integer>(1);
-		Node<Integer> n13 = new Node< Integer>(1);
-		Node<Integer> n14 = new Node< Integer>(1);
-		Node<Integer> n15 = new Node< Integer>(1);
-		Node<Integer> n16 = new Node< Integer>(1);
-		Node<Integer> n17 = new Node< Integer>(1);
-		
-		
-		b.root().setLeft(n2);
-		b.root().setRight(n3);
-		b.root().getLeft().setLeft(n4);
-		b.root().getLeft().setRight(n5);
-		b.root().getRight().setLeft(n6);
-		b.root().getRight().setRight(n7);
-		b.root().getLeft().getLeft().setLeft(n8);
-		b.root().getLeft().getLeft().setRight(n9);
-		
-		b.root().getLeft().getRight().setLeft(n10);
-		b.root().getLeft().getRight().setRight(n11);
-		b.root().getLeft().getRight().getLeft().setLeft(n12);
-		//b.root().getLeft().getRight().getLeft().setRight(n12);
-		b.imprimirArbol();
-		
-		System.out.println(b.height(b.root()));
-	}
 
 }
