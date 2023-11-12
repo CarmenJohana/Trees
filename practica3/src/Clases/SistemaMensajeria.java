@@ -110,10 +110,10 @@ public class SistemaMensajeria{
 		b.insertLeft(b.root().getLeft().getRight(), 3 );
 		b.insertLeft(b.root().getLeft().getRight().getLeft(), 1 );
 		b.insertRight(b.root().getLeft().getRight().getLeft().getLeft(), 19);
-		//b.insertRight(b.root().getLeft().getRight().getLeft().getLeft().getRight(), 0);
+		//b.insertLeft(b.root().getLeft().getRight().getLeft().getLeft(), 0);
 		//b.insertLeft(b.root().getLeft().getRight().getLeft().getLeft().getRight(), 5);
 		//b.insertLeft(b.root().getLeft().getRight().getLeft().getLeft().getRight().getRight(), 11);
-		System.out.println("ESTE ---> "+b.parent(b.root().getLeft().getRight().getLeft().getLeft().getRight().getRight()));
+		
 		
 		//System.out.println("PADRE DE 9 "+ b.parent(b.root().getRight().getRight().getLeft()));
 		/***
@@ -132,11 +132,11 @@ public class SistemaMensajeria{
 		//b.root().getLeft().getRight().getLeft().setRight(n12);
 		***/
 		
-		//b.imprimeArbol();
-		b.imprimirArbol();
-		System.out.println("PARENT 6 "+ b.parent(b.root().getRight()));
-		b.remove(b.root().getRight());
-		System.out.println("HIJO DERECHO DEL 1 "+ b.root().getRight());
+		
+		//b.imprimirArbol();
+		//System.out.println("PARENT 6 "+ b.parent(b.root().getRight()));
+		//b.remove(b.root().getRight());
+		//System.out.println("HIJO DERECHO DEL 1 "+ b.root().getRight());
 		//b.imprimirArbol();
 		
 		
@@ -152,11 +152,40 @@ public class SistemaMensajeria{
 		b1.insert(19, 8);
 		b1.insert(19, 6);
 		b1.insert(19, 24);
+		b1.insert(19, 6);
+		b1.imprimirArbol();
+		
+		b1.Inorder();
+		//b1.insert(19, 1);
+		//b1.insert(19, 0);
 		
 		b1.imprimirArbol();
-		System.out.println();
 		
+		System.out.println();
+		//b1.remove(15);
+		b1.imprimirArbol();
+		b1.remove(7);
+		b1.imprimirArbol();
+		b1.remove(7);
+		b1.imprimirArbol();
+		b1.remove(7);
+		b1.imprimirArbol();
+		
+		b1.insert(123, 101);
+		b1.imprimirArbol();
+		
+		
+		//System.out.println(b1.maximo());
 		//System.out.println(b.height(b.root()));
+		
+		System.out.println(b1.find(24).getData().getData()); //Así accedemos al usuario
+		
+		
 	}
 
+	
+
+	
+	
 }
+

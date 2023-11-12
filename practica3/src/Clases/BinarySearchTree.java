@@ -33,6 +33,7 @@ public class BinarySearchTree <T> extends BinaryTree<T>{
 		}
 		else {
 			addEntry((Node<BSTEntry<T>>) this.root(), O);
+			this.setSize(this.size()+1);
 		}
 	}
 	
@@ -72,6 +73,20 @@ public class BinarySearchTree <T> extends BinaryTree<T>{
 			return v.getData();
 		}
 	}
+	
+	public BSTEntry<T> minimo(){
+		return min((Node<BSTEntry<T>>) this.root());
+	}
+	
+	public BSTEntry<T> min(Node<BSTEntry<T>> v){
+		if (hasLeft((Node<T>) v)) {
+			return min((Node<BSTEntry<T>>) left( (Node<T>) v));
+		}
+		else {
+			return v.getData();
+		}
+	}
+	
 	
 	
 	

@@ -215,22 +215,21 @@ public class BinaryTree<T> {
 			else {
 				child = right(v);
 			}
-			if (left(p).equals(v)) {
-				p.setLeft(child);
+			if (left(p) != null && left(p).equals(v)) {
+			    p.setLeft(child);
+			} else {
+			    p.setRight(child);
 			}
-			else {
-				p.setRight(child);
-			}
+
 			v.setLeft(null);
 			v.setRight(null);
 		}
 		else {
 			
-			if(left(p).equals(v)) {
-				p.setLeft(null);
-			}
-			else {
-				p.setRight(null);
+			if (left(p) != null && left(p).equals(v)) {
+			    p.setLeft(null);
+			} else {
+			    p.setRight(null);
 			}
 			
 		}
@@ -246,35 +245,6 @@ public class BinaryTree<T> {
 		int cantidad =(int) (3*(Math.pow(2, height)-1)+Math.pow(2, height));
 		int valorMalla =cantidad;
 		
-		/***Queue<Node<T>> q1 = new Queue<Node<T>>();
-		Queue<Node<T>> q2 = new Queue<Node<T>>();
-		q1.enqueue(root());
-		q2.enqueue(root());
-
-		while (!q2.isEmpty()) {
-		    Node<T> saca = q2.dequeue();
-
-		    if (saca != null) {
-		        if (saca.getLeft() != null) {
-		            q2.enqueue(saca.getLeft());
-		        } else {
-		            q2.enqueue(null);
-		        }
-
-		        if (saca.getRight() != null) {
-		            q2.enqueue(saca.getRight());
-		        } else {
-		            q2.enqueue(null);
-		        }
-
-		        q1.enqueue(saca.getLeft());
-		        q1.enqueue(saca.getRight());
-		    } else {
-		        // Si el nodo actual es nulo, encolamos dos nodos nulos correspondientes a los hijos inexistentes
-		        q1.enqueue(null);
-		        q1.enqueue(null);
-		    }
-		}***/
 		Queue<Node<T>> q1 = new Queue<Node<T>>();
 	    Queue<Node<T>> q2 = new Queue<Node<T>>();
 	    
@@ -323,8 +293,11 @@ public class BinaryTree<T> {
 					}
 				}
 				
-			
-			
+				if (this.size()==1) {
+					System.out.println(root);
+				}
+		
+		
 			
 		int contador;
 		int h=1;//Controla la cantidad de veces que se hace desqueue
@@ -376,7 +349,28 @@ public class BinaryTree<T> {
 			System.out.println();
 		}
 	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
 	
 	
+
+	public void Inorder() {
+		inorder(this.root());
+	}
+	
+	private void inorder(Node<T> v ) {
+		
+		if (hasLeft(v)) {
+			inorder(left(v));
+		}
+		System.out.println(v);
+		if (hasRight(v)){
+			inorder(right(v));
+		}
+		
+		
+	}
 
 }
