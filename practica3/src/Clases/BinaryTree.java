@@ -268,15 +268,7 @@ public class BinaryTree<T> {
 	            }
 	        }
 	    }
-		//q1 tiene todos los nodos del árbol mas los hijos nulos de los últimos
-		/***
-		//VERIFICACIÓN AQUI
-		while(!q1.isEmpty()) {
-			
-			System.out.println(q1.dequeue());
-			
-			
-		}***/
+
 		
 		
 		Node<T> e=null;
@@ -348,6 +340,10 @@ public class BinaryTree<T> {
 			h++;	
 			System.out.println();
 		}
+	}
+
+	public void setRoot(Node<T> root) {
+		this.root = root;
 	}
 
 	public void setSize(int size) {
